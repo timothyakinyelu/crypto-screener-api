@@ -1,2 +1,2 @@
 # crypto-screener-app
-Cryptocurrency screener built with React.JS and Flask micro framework
+Cryptocurrency screener api built with Flask micro framework
