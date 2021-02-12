@@ -17,8 +17,6 @@ class DevelopmentConfig(BaseConfig):
     DEBUG = True
     TEST_BINANCE_API_KEY = "OyAVMJsB9emzAmSfMazfcqVR6AraAlchCB0Te1KK6l8NaUok2Qttq8JuaVaL9wos"
     TEST_BINANCE_SECRET_KEY = "cU7DzFHQgdvOjgrOWeAXFMyMo5WXNU5Amx0fOJ1RJJ8WLXGfYOgCwthAFdUVR4yR"
-    BINANCE_API_KEY = os.environ.get('BINANCE_API_KEY')
-    BINANCE_SECRET_KEY = os.environ.get('BINANCE_SECRET_KEY')
     CACHE_TYPE = "filesystem"
     CACHE_DIR = "/tmp/cache"
     
@@ -26,8 +24,6 @@ class DevelopmentConfig(BaseConfig):
 class ProductionConfig(BaseConfig):
     """Production environment configuration"""
     
-    BINANCE_API_KEY = os.environ.get('BINANCE_API_KEY')
-    BINANCE_SECRET_KEY = os.environ.get('BINANCE_SECRET_KEY')
     CACHE_TYPE = "saslmemcached"
     CACHE_MEMCACHED_SERVERS = os.environ.get('MEMCACHIER_SERVERS', '').split(','),
     CACHE_MEMCACHED_USERNAME = os.environ.get('MEMCACHIER_USERNAME', ''),
