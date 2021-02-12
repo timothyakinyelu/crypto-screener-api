@@ -1,14 +1,13 @@
 from flask import json, current_app
 from binance.client import Client
-from flask_caching import Cache
 from datetime import datetime, timedelta
 from src.controllers.indicators import run_indicators
+from src import cache
 import pandas as pd
 import os
 
 
-client = Client(current_app.config['BINANCE_API_KEY'], current_app.config['BINANCE_SECRET_KEY'])
-cache = Cache()
+client = Client(os.environ.get('BINANCE_API_KEY'), os.environ.get('BINANCE_SECRET_KEY'))
     
 def generate_candlesticks(symbol):
     """ Generate candlestick files for each crypto"""
