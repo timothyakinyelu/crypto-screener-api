@@ -10,10 +10,8 @@ import os
 client = Client(current_app.config['BINANCE_API_KEY'], current_app.config['BINANCE_SECRET_KEY'])
 cache = Cache()
     
-def generate_candlesticks():
+def generate_candlesticks(symbol):
     """ Generate candlestick files for each crypto"""
-    
-    symbol = 'BTCUSDT'
     
     start_date = datetime.now() - timedelta(hours=24)
     end_date = datetime.now()
@@ -21,8 +19,8 @@ def generate_candlesticks():
     startValue = int(datetime.timestamp(start_date)  * 1000)
     endValue = int(datetime.timestamp(end_date) * 1000)
     
-    filename = 'backend/src/datasets/cryptodata/{}_candles.csv'.format(symbol)
-    indicatorsFile = 'backend/src/datasets/cryptodata/{}_result.json'.format(symbol)
+    filename = 'src/datasets/cryptodata/{}_candles.csv'.format(symbol)
+    indicatorsFile = 'src/datasets/cryptodata/{}_result.json'.format(symbol)
     
     try:
         if os.path.exists(filename):
