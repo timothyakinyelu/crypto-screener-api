@@ -1,7 +1,9 @@
 from . import main
 from flask.views import MethodView
 from flask import make_response, json
+from src import cache
 import pandas as pd
+import os
 
 class ScreenerView(MethodView):
     """Class controlling public routes"""
@@ -15,8 +17,11 @@ class ScreenerView(MethodView):
             symbol_name = symbol[1][0]
             coin_json = cache.get('{}_file'.format(symbol_name))
             
-            df = pd.read_json(coin_json, typ='series')
-            dfs.append(df)
+            if coin_json:
+                df = pd.read_json(coin_json, typ='series')
+                dfs.append(df)
+            else:
+                pass
             
         temp = pd.concat(dfs, axis=1)
         res = {'data': temp}
