@@ -3,6 +3,7 @@ from binance.client import Client
 from datetime import datetime, timedelta
 from src.controllers.indicators import run_indicators
 from src import cache
+from pathlib import Path
 import pandas as pd
 import os
 
@@ -18,8 +19,12 @@ def generate_candlesticks(symbol):
     startValue = int(datetime.timestamp(start_date)  * 1000)
     endValue = int(datetime.timestamp(end_date) * 1000)
     
-    filename = 'src/datasets/cryptodata/{}_candles.csv'.format(symbol)
-    indicatorsFile = 'src/datasets/cryptodata/{}_result.json'.format(symbol)
+    dataFolder = Path('src/datasets/cryptodata/')
+    dataFile = dataFolder / '{}_candles.csv'.format(symbol)
+    dataFile2 = dataFolder / '{}_result.json'.format(symbol)
+    
+    filename = dataFile
+    indicatorsFile = dataFile2
     
     try:
         if os.path.exists(filename):

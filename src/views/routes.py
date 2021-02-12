@@ -2,6 +2,7 @@ from . import main
 from flask.views import MethodView
 from flask import make_response, json
 from src import cache
+from pathlib import Path
 import pandas as pd
 import os
 
@@ -9,7 +10,9 @@ class ScreenerView(MethodView):
     """Class controlling public routes"""
     
     def get(self):
-        files = pd.read_csv('src/datasets/symbols.csv', sep='\n', header=None)
+        dataFolder = Path('src/datasets/')
+        dataFile = dataFolder / "symbols.csv"
+        files = pd.read_csv(dataFile, sep='\n', header=None)
         dfs = []
         
         # iterate over the csv file to get symbol names
