@@ -1,3 +1,4 @@
+from binance.client import Client
 import pandas as pd
 import os
 import talib
@@ -26,12 +27,16 @@ def run_indicators(symbol, file):
                 rsi = talib.RSI(closePrice)
                 slowk, slowd = talib.STOCH(highPrice, lowPrice, closePrice, fastk_period=14, slowk_period=3, slowd_period=3)
                 macd, macdsignal, macdhist = talib.MACD(closePrice, fastperiod=12, slowperiod=26, signalperiod=9)
-            
+                
+                # get ticker current price
+                client = Client(os.environ.get('BINANCE_API_KEY'), os.environ.get('BINANCE_SECRET_KEY'), {"timeout": 100})
+                closing_price = client.get_symbol_ticker(symbol=symbol)
+                
                 # create crypto object
                 crypto = {}
-                
+            
                 crypto['ticker'] = symbol
-                crypto['price'] = closePrice[-1]
+                crypto['price'] = closing_price['price']
                 crypto['SMA14'] = sma[-1]
                 crypto['ATR'] = atr[-1]
                 crypto['NATR'] = natr[-1]
@@ -41,9 +46,10 @@ def run_indicators(symbol, file):
                 crypto['STO'] = slowk[-1], slowd[-1]
                 crypto['MACD'] = macd[-1]
                 crypto['PPO'] = ppo[-1]
-
-                return crypto
             else:
-                pass
+                crypto = {}
+                crypto['ticker'] = symbol
+            
+            return crypto
         except Exception as e:
             print(str(e))
