@@ -13,3 +13,5 @@ env.sh
 # migrations
 *.idea
 cryptodata
+lock
+*.log
