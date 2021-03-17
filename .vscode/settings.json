@@ -10,5 +10,6 @@
         "-p",
         "*test*.py"
     ],
-    "python.testing.unittestEnabled": true
+    "python.testing.unittestEnabled": true,
+    "python.linting.pylintEnabled": true
 }
